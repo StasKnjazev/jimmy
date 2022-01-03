@@ -1,6 +1,6 @@
 [package]
 name = "jimmy"
-version = "0.0.0"
+version = "0.1.0"
 edition = "2021"
 authors = [ "xylous <xylous.e@gmail.com>" ]
 description = "Arch Linux installer... with YAML files"
@@ -11,3 +11,4 @@ repository = "https://github.com/xylous/jimmy"
 readme = true
 
 [dependencies]
+clap = { version = "3.0.0" }
