@@ -2,7 +2,12 @@
 name = "jimmy"
 version = "0.0.0"
 edition = "2021"
-
-# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+authors = [ "xylous <xylous.e@gmail.com>" ]
+description = "Arch Linux installer... with YAML files"
+keywords = [ "arch", "linux", "installer" ]
+categories = [ "command-line-utilities" ]
+license = "MIT"
+repository = "https://github.com/xylous/jimmy"
+readme = true
 
 [dependencies]
