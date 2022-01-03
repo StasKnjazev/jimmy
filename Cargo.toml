@@ -1,6 +1,6 @@
 [package]
 name = "jimmy"
-version = "0.1.0"
+version = "0.2.0"
 edition = "2021"
 authors = [ "xylous <xylous.e@gmail.com>" ]
 description = "Arch Linux installer... with YAML files"
@@ -12,3 +12,5 @@ readme = true
 
 [dependencies]
 clap = { version = "3.0.0" }
+serde = { version = "1.0.133", features = [ "derive" ] }
+serde_yaml = { version = "0.8.23" }

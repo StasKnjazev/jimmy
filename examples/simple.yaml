@@ -6,8 +6,8 @@ username: foo-person
 hostname: archlinux
 
 # user preferences
-editor: vim
 bootloader: grub
+extra: vim
 
 # alternatively: `lts`
 kernel: latest
