@@ -25,3 +25,27 @@ pub struct ParsedPartition
     pub size: Option<String>,
     pub mount: Option<String>,
 }
+
+/// Guaranteed valid installation options
+///
+/// Can only be constructed from a `struct ParsedInstallOptions`
+#[derive(Debug)]
+pub struct InstallOptions
+{
+    pub username: String,
+    pub hostname: String,
+    pub kernel: String,
+    pub extra: String,
+    pub bootloader: String,
+    pub partitions: Vec<Partition>,
+}
+
+/// Guaranteed valid partition
+#[derive(Debug)]
+pub struct Partition
+{
+    pub format: String,
+    pub disk: String,
+    pub size: String,
+    pub mount: String,
+}
