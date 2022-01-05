@@ -31,10 +31,10 @@ cargo build
 
 ## Roadmap
 
-- [ ] provide example YAML file
-- [ ] parse YAML file (with `serde`)
-- [ ] check if the input file is valid
-    - [ ] error if e.g. `editor` isn't specified
+- [x] provide example YAML file
+- [x] parse YAML file (with `serde`)
+- [x] check if the input file is valid
+    - [x] error if e.g. `username` isn't specified
 - [ ] prepare installation
     - [ ] update system clock
     - [ ] partitions
