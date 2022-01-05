@@ -26,9 +26,8 @@ pub struct ParsedPartition
     pub mount: Option<String>,
 }
 
-/// Guaranteed valid installation options
-///
-/// Can only be constructed from a `struct ParsedInstallOptions`
+/// Guaranteed valid installation options. Can only be constructed from a `struct
+/// ParsedInstallOptions`
 #[derive(Debug)]
 pub struct InstallOptions
 {
@@ -40,7 +39,7 @@ pub struct InstallOptions
     pub partitions: Vec<Partition>,
 }
 
-/// Guaranteed valid partition
+/// Guaranteed valid partition. Can only be constructed from a `struct ParsedPartition`
 #[derive(Debug)]
 pub struct Partition
 {
@@ -48,4 +47,25 @@ pub struct Partition
     pub disk: String,
     pub size: String,
     pub mount: String,
+}
+
+impl Partition
+{
+    pub fn new(raw: ParsedPartition) -> Self
+    {
+        let mut format = "";
+        if raw.format.is_none() || raw.mount.as_ref().unwrap() == "" {
+            println!("warning: partition format not specified; defaulting to 'ext4'");
+            format = "ext4";
+        }
+        if raw.mount.is_none() || raw.mount.as_ref().unwrap() == "" {
+            println!("warning: partition mount not specified; it's not going to be mounted");
+        }
+        Self {
+            format: format.to_string(),
+            disk: raw.disk.expect("error: partition disk not specified"),
+            size: raw.size.unwrap_or("".to_string()),
+            mount: raw.mount.unwrap_or("".to_string()),
+        }
+    }
 }
