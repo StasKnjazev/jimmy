@@ -1,5 +1,12 @@
 # Changelog
 
+## 0.3.2 - 2021-01-07
+
+- add usage section to README.md
+- print warnings during parse time to stderr
+- add examples where an error/a warning is purposefully thrown
+- fix bug caused by using the wrong variable
+
 ## 0.3.1 - 2021-01-07
 
 - create `mount` calls only if the mount point is specified for a partition
