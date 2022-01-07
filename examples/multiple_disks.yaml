@@ -1,0 +1,31 @@
+# Uses three partitions on two different disks
+
+username: baz-person
+hostname: archlinux
+
+# user preferences
+bootloader: grub
+extra: vim
+
+# alternatively: `lts`
+kernel: latest
+
+# you have to configure partitions manually
+partitions:
+  # the name of the array serves no purpose other than readability
+  - boot:
+    format: fat32
+    mount: /boot
+    disk: /dev/sda
+    size: 500M
+  - root:
+    format: ext4
+    mount: /
+    disk: /dev/sdb
+    size: 40G
+  - home:
+    format: ext4
+    mount: /home
+    disk: /dev/sdb
+    # when there's no `size` property, it's assumed you want the remaining space
+    # on the disk
