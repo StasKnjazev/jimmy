@@ -3,7 +3,7 @@
 An Arch installer with a funny name.
 
 It's not interactive. It takes a YAML file as input, checks if it's valid,
-generates a Shell script based on it and runs that.
+generates a Shell script based on it.
 
 ## Getting started
 
@@ -23,11 +23,18 @@ cd jimmy
 cargo build
 ```
 
-<!--
 ### Usage
 
-(How is this software used?)
--->
+Synopsis:
+
+```
+jimmy <FILE>
+```
+
+`jimmy` will then proceed to generate a shell script based on the input file,
+warn you of missing/important properties, and error if there some vital ones
+(such as `hostname`) aren't specified. It is up to you to redirect the output to
+a file and execute it with a shell.
 
 ## Roadmap
 
