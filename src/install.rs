@@ -23,3 +23,22 @@ impl InstallOptions
             .collect()
     }
 }
+
+#[allow(dead_code)]
+impl Partition
+{
+    /// Return the string that can be `echo`ed into `fdisk` to create this Partition
+    pub fn fdisk_script_string(&self, number: u32) -> String
+    {
+        format!(
+            // n: create new partition
+            // p: primary partition
+            // use partition number specified
+            // next line: default first sector
+            // use partition size specified in instance
+            r"n\np\n{}\n\n{}\n",
+            number,
+            &self.size,
+        )
+    }
+}
