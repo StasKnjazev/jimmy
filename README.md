@@ -37,10 +37,10 @@ cargo build
     - [x] error if e.g. `username` isn't specified
 - [ ] prepare installation
     - [ ] update system clock
-    - [ ] partitions
-        - [ ] create with FDISK
-        - [ ] format
-        - [ ] mount filesystems
+    - [x] partitions
+        - [x] create with fdisk
+        - [x] format
+        - [x] mount filesystems
     - [ ] install *all* specified packages
 - [ ] configure the system
     - [ ] generate an fstab file

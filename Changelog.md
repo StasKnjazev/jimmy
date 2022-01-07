@@ -1,5 +1,14 @@
 # Changelog
 
+## 0.3.0 - 2021-01-07
+
+- add examples with multiple partitions and multiple disks
+- add functions to generate code for:
+    - `fdisk` calls, to create partitions
+    - `mkfs` calls, to format the partitions
+    - `mount` calls, to mount the partitions-proper
+- generate a shell script and print it to stdout
+
 ## 0.2.0 - 2021-01-05
 
 - add definitions for both parsed and definite data
