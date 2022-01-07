@@ -85,7 +85,7 @@ impl Partition
     pub fn new(raw: ParsedPartition) -> Self
     {
         let format: String;
-        if raw.format.is_none() || raw.mount.as_ref().unwrap() == "" {
+        if raw.format.is_none() || raw.format.as_ref().unwrap() == "" {
             eprintln!("warning: partition format not specified; defaulting to 'ext4'");
             format = "ext4".to_string();
         } else {
