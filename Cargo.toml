@@ -14,3 +14,4 @@ readme = true
 clap = { version = "3.0.0" }
 serde = { version = "1.0.133", features = [ "derive" ] }
 serde_yaml = { version = "0.8.23" }
+regex = { version = "1.5.4" }
