@@ -145,7 +145,7 @@ impl Partition
             None
         } else {
             Some(format!(
-                "mkdir -p /mnt/{} && mount {} {}",
+                "mkdir -p /mnt{} && mount {} {}",
                 self.mount,
                 self.get_partition_file(number),
                 self.mount,
