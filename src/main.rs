@@ -35,7 +35,7 @@ fn main() -> Result<(), std::io::Error>
     let contents = read_file(path)?;
     let data: ParsedInstallOptions = serde_yaml::from_str(&contents).unwrap();
     let proper = InstallOptions::new(data);
-    println!("{}", proper.generate_shellscript());
+    print!("{}", proper.generate_shellscript());
 
     Ok(())
 }
