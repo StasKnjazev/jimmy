@@ -1,4 +1,5 @@
 use crate::data::{InstallOptions, Partition};
+use regex::Regex;
 
 #[allow(dead_code)]
 impl InstallOptions
@@ -69,5 +70,18 @@ impl Partition
             number,
             &self.size,
         )
+    }
+
+    /// Return the path to the partition file (e.g. `/dev/sda1`, if provided `0`)
+    fn get_partition_file(&self, number: u32) -> String
+    {
+        let disk = self.disk.clone();
+        let n = &(number + 1).to_string();
+        // NVME naming patterns are... abnormal.
+        let re = Regex::new(r"/dev/nvme\d+n\d+").unwrap();
+        if re.is_match(&disk) {
+            return disk + "p" + n;
+        }
+        disk + n
     }
 }
