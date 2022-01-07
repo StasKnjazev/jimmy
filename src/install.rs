@@ -114,6 +114,18 @@ impl Partition
         }
     }
 
+    /// Return a shell command containing a `mkdir -p` call for the mounting point of the
+    /// partition, and then a `mount` call to actually mount the partition
+    pub fn mount_cmd(&self, number: u32) -> String
+    {
+        format!(
+            "mkdir -p /mnt/{} && mount {} {}",
+            self.mount,
+            self.get_partition_file(number),
+            self.mount,
+        )
+    }
+
     /// Return the path to the partition file (e.g. `/dev/sda1`, if provided `0`)
     fn get_partition_file(&self, number: u32) -> String
     {
