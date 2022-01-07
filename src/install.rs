@@ -72,6 +72,24 @@ impl Partition
         )
     }
 
+    /// Return the `mkfs` command that can format this partition, or `None` if the format of the
+    /// partition wasn't recognised.
+    pub fn mkfs_cmd(&self, number: u32) -> Option<String>
+    {
+        let cmd = match self.format.as_str() {
+            "ext2" => "mkfs.ext2",
+            "ext3" => "mkfs.ext3",
+            "ext4" => "mkfs.ext4",
+            "fat32" => "mkfs.fat -F 32",
+            _ => ""
+        }.to_string();
+        if cmd.is_empty() { // if true, then we didn't recognised the format
+            None
+        } else {
+            Some(cmd + " " + &self.get_partition_file(number))
+        }
+    }
+
     /// Return the path to the partition file (e.g. `/dev/sda1`, if provided `0`)
     fn get_partition_file(&self, number: u32) -> String
     {
