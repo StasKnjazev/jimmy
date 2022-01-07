@@ -84,16 +84,18 @@ impl Partition
 {
     pub fn new(raw: ParsedPartition) -> Self
     {
-        let mut format = "";
+        let format: String;
         if raw.format.is_none() || raw.mount.as_ref().unwrap() == "" {
             println!("warning: partition format not specified; defaulting to 'ext4'");
-            format = "ext4";
+            format = "ext4".to_string();
+        } else {
+            format = raw.format.unwrap();
         }
         if raw.mount.is_none() || raw.mount.as_ref().unwrap() == "" {
             println!("warning: partition mount not specified; it's not going to be mounted");
         }
         Self {
-            format: format.to_string(),
+            format,
             disk: raw.disk.expect("error: partition disk not specified"),
             size: raw.size.unwrap_or("".to_string()),
             mount: raw.mount.unwrap_or("".to_string()),
