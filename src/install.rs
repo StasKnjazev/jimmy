@@ -27,7 +27,10 @@ impl InstallOptions
             let partitions = self.partitions_on_disk(&disk);
             let mut i = 0;
             while i < partitions.len() as u32 {
-                cmds.push(partitions[i as usize].mount_cmd(i));
+                let cmd = partitions[i as usize].mount_cmd(i);
+                if cmd.is_some() {
+                    cmds.push(cmd.unwrap());
+                }
                 i += 1;
             }
         }
@@ -134,15 +137,20 @@ impl Partition
     }
 
     /// Return a shell command containing a `mkdir -p` call for the mounting point of the
-    /// partition, and then a `mount` call to actually mount the partition
-    pub fn mount_cmd(&self, number: u32) -> String
+    /// partition, and then a `mount` call to actually mount the partition, or `None` if the mount
+    /// point wasn't specified
+    pub fn mount_cmd(&self, number: u32) -> Option<String>
     {
-        format!(
-            "mkdir -p /mnt/{} && mount {} {}",
-            self.mount,
-            self.get_partition_file(number),
-            self.mount,
-        )
+        if self.mount.is_empty() {
+            None
+        } else {
+            Some(format!(
+                "mkdir -p /mnt/{} && mount {} {}",
+                self.mount,
+                self.get_partition_file(number),
+                self.mount,
+            ))
+        }
     }
 
     /// Return the path to the partition file (e.g. `/dev/sda1`, if provided `0`)

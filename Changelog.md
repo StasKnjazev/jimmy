@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.3.1 - 2021-01-07
+
+- create `mount` calls only if the mount point is specified for a partition
+
 ## 0.3.0 - 2021-01-07
 
 - add examples with multiple partitions and multiple disks
