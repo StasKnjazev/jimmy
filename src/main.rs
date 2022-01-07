@@ -2,6 +2,7 @@ use std::process::exit;
 use clap::{App, Arg};
 
 mod data;
+mod install;
 use data::*;
 
 /// Determine if the given path exists *and* is a file
@@ -32,7 +33,9 @@ fn main() -> Result<(), std::io::Error>
         exit(1);
     }
     let contents = read_file(path)?;
-    let _data: ParsedInstallOptions = serde_yaml::from_str(&contents).unwrap();
+    let data: ParsedInstallOptions = serde_yaml::from_str(&contents).unwrap();
+    let proper = InstallOptions::new(data);
+    println!("{}", proper.generate_shellscript());
 
     Ok(())
 }
