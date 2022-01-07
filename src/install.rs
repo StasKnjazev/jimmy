@@ -3,6 +3,27 @@ use crate::data::{InstallOptions, Partition};
 #[allow(dead_code)]
 impl InstallOptions
 {
+    /// Return the list of shell commands that create the partitions with `fdisk`
+    pub fn fdisk_cmd(&self) -> Vec<String>
+    {
+        let disks = self.unique_disks_used();
+
+        let mut cmds = Vec::new();
+        for disk in disks {
+            let partitions = self.partitions_on_disk(&disk);
+
+            let mut cmd = String::from("echo -n \"o\\n");
+            let mut i = 1;
+            while i <= partitions.len() as u32 {
+                cmd += partitions[i as usize - 1].fdisk_script_string(i).as_str();
+                i += 1;
+            }
+            cmd += &format!("\\nw\\n\" | fdisk {} &>/dev/null", disk);
+            cmds.push(cmd);
+        }
+        cmds
+    }
+
     /// Return the list of all unique disks used in the configuration
     fn unique_disks_used(&self) -> Vec<String>
     {
