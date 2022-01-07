@@ -1,0 +1,21 @@
+# The root partition doesn't have a mountpoint specified; jimmy should throw a
+# warning for that
+
+username: foo-person
+hostname: archlinux
+
+# user preferences
+bootloader: grub
+extra: vim
+
+# alternatively: `lts`
+kernel: latest
+
+# you have to configure partitions manually
+partitions:
+  # the name of the array serves no purpose other than readability
+  - root:
+    format: ext4
+    disk: /dev/sda
+    # when there's no `size` property, it's assumed you want the remaining space
+    # on the disk
