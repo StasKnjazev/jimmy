@@ -11,8 +11,27 @@ impl InstallOptions
         code += &self.fdisk_cmds().join("\n");
         code += "\n\n";
         code += &self.mkfs_cmds().join("\n");
+        code += "\n\n";
+        code += &self.mount_cmds().join("\n");
         code += "\n";
         code
+    }
+
+    /// Generate a list of shell commands that mount every partition
+    fn mount_cmds(&self) -> Vec<String>
+    {
+        let disks = self.unique_disks_used();
+
+        let mut cmds = Vec::new();
+        for disk in disks {
+            let partitions = self.partitions_on_disk(&disk);
+            let mut i = 0;
+            while i < partitions.len() as u32 {
+                cmds.push(partitions[i as usize].mount_cmd(i));
+                i += 1;
+            }
+        }
+        cmds
     }
 
     /// Generate a list of shell commands that format the partitions with `mkfs`, but only for the
