@@ -115,7 +115,7 @@ impl Partition
             // then: change the type of the partition
             // use the partition number specified
             // change it to the type needed for the format
-            r"n\np\n{}\n\n{}\nt\n{}\n{}\n",
+            r"n\np\n{}\n\n+{}\nt\n{}\n{}\n",
             number,
             &self.size,
             number,
