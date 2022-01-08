@@ -1,5 +1,18 @@
 # Changelog
 
+## 0.3.4 - 2021-01-08
+
+- add support for swap partitions
+- refactor code
+
+## 0.3.3 - 2021-01-08
+
+- when generating fdisk commands:
+    - create a GPT partition table by default
+    - change the type of the partitions so that they can be used with the format
+    - use partition sizes relative from the start sector, instead of absolute
+    sizes
+
 ## 0.3.2 - 2021-01-07
 
 - add usage section to README.md
