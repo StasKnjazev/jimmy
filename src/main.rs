@@ -32,9 +32,10 @@ fn main() -> Result<(), std::io::Error>
         eprintln!("error: provided path is not a file");
         exit(1);
     }
+
     let contents = read_file(path)?;
-    let data: ParsedInstallOptions = serde_yaml::from_str(&contents).unwrap();
-    let proper = InstallOptions::new(data);
+    let parsed: ParsedInstallOptions = serde_yaml::from_str(&contents).unwrap();
+    let proper = InstallOptions::from(parsed);
     print!("{}", proper.generate_shellscript());
 
     Ok(())

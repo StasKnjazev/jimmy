@@ -43,10 +43,10 @@ pub struct InstallOptions
     pub partitions: Vec<Partition>,
 }
 
-impl InstallOptions
+impl From<ParsedInstallOptions> for InstallOptions
 {
     /// Create a new instance of `InstallOptions` from an instance of `ParsedInstallOptions`
-    pub fn new(raw: ParsedInstallOptions) -> Self
+    fn from(raw: ParsedInstallOptions) -> Self
     {
         let kernel = match raw.kernel.unwrap_or_default().as_str() {
             "latest" => Kernel::Latest,
@@ -60,7 +60,7 @@ impl InstallOptions
             bootloader: raw.bootloader.expect("error: no bootloader specified"),
             // turn every `ParsedPartition` into a proper `Partition`
             partitions: raw.partitions.expect("error: no partitions specified")
-                            .iter().map(|p| Partition::new(p.clone())).collect(),
+                            .into_iter().map(|p| p.into()).collect(),
         }
     }
 }
@@ -75,10 +75,10 @@ pub struct Partition
     pub mount: String,
 }
 
-impl Partition
+impl From<ParsedPartition> for Partition
 {
     /// Create a new instance of `Partition` from an instance of `ParsedPartition`
-    pub fn new(raw: ParsedPartition) -> Self
+    fn from(raw: ParsedPartition) -> Self
     {
         let format: String;
         if raw.format.is_none() || raw.format.as_ref().unwrap() == "" {
