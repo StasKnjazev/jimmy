@@ -42,20 +42,20 @@ a file and execute it with a shell.
 - [x] parse YAML file (with `serde`)
 - [x] check if the input file is valid
     - [x] error if e.g. `username` isn't specified
-- [ ] prepare installation
-    - [ ] update system clock
+- [x] prepare installation
+    - [x] update system clock
     - [x] partitions
         - [x] create with fdisk
         - [x] format
         - [x] mount filesystems
-    - [ ] install *all* specified packages
+    - [x] install *all* specified packages
 - [ ] configure the system
     - [ ] generate an fstab file
     - [ ] set timezone
     - [ ] set locales
     - [ ] configure network
     - [ ] create initramfs
-    - [ ] configure users + root
+    - [ ] ~~configure users + root~~
     - [ ] configure bootloader
         - [ ] GRUB
         - [ ] efistub

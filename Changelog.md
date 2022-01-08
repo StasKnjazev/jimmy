@@ -1,5 +1,10 @@
 # Changelog
 
+## 0.4.0 - 2021-01-08
+
+- add shell code to update system time
+- add shell code to install specified packages
+
 ## 0.3.4 - 2021-01-08
 
 - add support for swap partitions
