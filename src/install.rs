@@ -1,4 +1,4 @@
-use crate::data::{InstallOptions, Partition};
+use crate::data::{InstallOptions, Partition, Kernel};
 use regex::Regex;
 
 impl InstallOptions
@@ -14,8 +14,27 @@ impl InstallOptions
         code += &self.map_partitions(Partition::mkfs_cmd).join("\n");
         code += "\n\n";
         code += &self.map_partitions(Partition::mount_cmd).join("\n");
+        code += "\n\n";
+        code += "echo 'Y' | pacstrap /mnt ";
+        code += &self.packages().join(" ");
         code += "\n";
         code
+    }
+
+    /// Return a list of packages that need to be installed with `pacstrap` onto the new system
+    fn packages(&self) -> Vec<&str>
+    {
+        vec![
+            "base",
+            match self.kernel {
+                Kernel::Latest => "linux",
+                Kernel::Lts => "linux-lts",
+            },
+            "linux-firmware",
+            &self.extra,
+            &self.bootloader,
+            "efibootmgr",
+        ]
     }
 
     /// Map a function `apply()` over all partitions, by associating them with their disks so that
