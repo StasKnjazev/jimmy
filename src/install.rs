@@ -28,8 +28,8 @@ impl InstallOptions
             let mut i = 0;
             while i < partitions.len() as u32 {
                 let cmd = partitions[i as usize].mount_cmd(i);
-                if cmd.is_some() {
-                    cmds.push(cmd.unwrap());
+                if let Some(cmd) = cmd {
+                    cmds.push(cmd);
                 }
                 i += 1;
             }
@@ -49,8 +49,8 @@ impl InstallOptions
             let mut i = 0;
             while i < partitions.len() as u32 {
                 let cmd = partitions[i as usize].mkfs_cmd(i);
-                if cmd.is_some() {
-                    cmds.push(cmd.unwrap());
+                if let Some(cmd) = cmd {
+                    cmds.push(cmd);
                 }
                 i += 1;
             }

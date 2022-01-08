@@ -28,7 +28,7 @@ pub struct ParsedPartition
 #[derive(Debug)]
 pub enum Kernel {
     Latest,
-    LTS,
+    Lts,
 }
 
 /// Struct that contains the minimum needed to create a functioning Arch installation
@@ -50,7 +50,7 @@ impl InstallOptions
     {
         let kernel = match raw.kernel.unwrap_or_default().as_str() {
             "latest" => Kernel::Latest,
-            _ => Kernel::LTS, // assume LTS kernel at all times
+            _ => Kernel::Lts, // assume LTS kernel at all times
         };
         Self {
             username: raw.username.expect("error: username not specified"),
@@ -93,8 +93,8 @@ impl Partition
         Self {
             format,
             disk: raw.disk.expect("error: partition disk not specified"),
-            size: raw.size.unwrap_or("".to_string()),
-            mount: raw.mount.unwrap_or("".to_string()),
+            size: raw.size.unwrap_or_else(|| "".to_string()),
+            mount: raw.mount.unwrap_or_else(|| "".to_string()),
         }
     }
 }
