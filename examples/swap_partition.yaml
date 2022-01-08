@@ -1,0 +1,26 @@
+# Use two partitions (a swap partition and root partition) on /dev/sda
+
+username: foo-bar-lad
+hostname: archlinux
+
+# user preferences
+bootloader: grub
+extra: vim
+
+# alternatively: `lts`
+kernel: latest
+
+# you have to configure partitions manually
+partitions:
+  # the name of the array serves no purpose other than readability
+  - swap:
+    format: swap
+    mount: # mount is going to be ignored either way
+    disk: /dev/sda
+    size: 2G
+  - root:
+    format: ext4
+    mount: /
+    disk: /dev/sda
+    # when there's no `size` property, it's assumed you want the remaining space
+    # on the disk
