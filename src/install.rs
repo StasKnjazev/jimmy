@@ -112,9 +112,14 @@ impl Partition
             // use partition number specified
             // next line: default first sector
             // use partition size specified in instance
-            r"n\np\n{}\n\n{}\n",
+            // then: change the type of the partition
+            // use the partition number specified
+            // change it to the type needed for the format
+            r"n\np\n{}\n\n{}\nt\n{}\n{}\n",
             number,
             &self.size,
+            number,
+            &self.fdisk_partition_type(),
         )
     }
 
@@ -164,5 +169,14 @@ impl Partition
             return disk + "p" + n;
         }
         disk + n
+    }
+
+    /// Return the fdisk partition type that should be used with a certain format
+    fn fdisk_partition_type(&self) -> &str
+    {
+        match self.format.as_str() {
+            "fat32" => "b", // W95 FAT32
+            _ => "83", // Linux
+        }
     }
 }
