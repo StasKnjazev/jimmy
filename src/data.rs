@@ -1,5 +1,3 @@
-#[allow(dead_code)]
-
 use serde::Deserialize;
 
 /// *Potentially* valid installation options. Everything is wrapped in `Option<T>` because serde
@@ -27,15 +25,13 @@ pub struct ParsedPartition
 }
 
 /// Only the Latest or the LTS kernel can be installed
-#[allow(dead_code)]
 #[derive(Debug)]
 pub enum Kernel {
     Latest,
     LTS,
 }
 
-/// Guaranteed valid installation options. Can only be constructed from a `struct
-/// ParsedInstallOptions`
+/// Struct that contains the minimum needed to create a functioning Arch installation
 #[derive(Debug)]
 pub struct InstallOptions
 {
@@ -47,9 +43,9 @@ pub struct InstallOptions
     pub partitions: Vec<Partition>,
 }
 
-#[allow(dead_code)]
 impl InstallOptions
 {
+    /// Create a new instance of `InstallOptions` from an instance of `ParsedInstallOptions`
     pub fn new(raw: ParsedInstallOptions) -> Self
     {
         let kernel = match raw.kernel.unwrap_or_default().as_str() {
@@ -69,7 +65,7 @@ impl InstallOptions
     }
 }
 
-/// Guaranteed valid partition. Can only be constructed from a `struct ParsedPartition`
+/// Struct that contains the minimum needed to create a partition on disk
 #[derive(Debug)]
 pub struct Partition
 {
@@ -79,9 +75,9 @@ pub struct Partition
     pub mount: String,
 }
 
-#[allow(dead_code)]
 impl Partition
 {
+    /// Create a new instance of `Partition` from an instance of `ParsedPartition`
     pub fn new(raw: ParsedPartition) -> Self
     {
         let format: String;

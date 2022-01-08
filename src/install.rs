@@ -1,9 +1,9 @@
 use crate::data::{InstallOptions, Partition};
 use regex::Regex;
 
-#[allow(dead_code)]
 impl InstallOptions
 {
+    /// Create the script that applies the settings and installs the system
     pub fn generate_shellscript(&self) -> String
     {
         let mut code = "#/bin/sh\n".to_string();
@@ -100,7 +100,6 @@ impl InstallOptions
     }
 }
 
-#[allow(dead_code)]
 impl Partition
 {
     /// Return the string that can be `echo`ed into `fdisk` to create this Partition
@@ -135,16 +134,14 @@ impl Partition
             "swap" => "mkswap",
             _ => ""
         }.to_string();
-        if cmd.is_empty() { // if true, then we didn't recognised the format
+        if cmd.is_empty() { // if true, then we didn't recognise the format
             None
         } else {
             Some(cmd + " " + &self.get_partition_file(number))
         }
     }
 
-    /// Return a shell command containing a `mkdir -p` call for the mounting point of the
-    /// partition, and then a `mount` call to actually mount the partition, or `None` if the mount
-    /// point wasn't specified
+    /// Return a shell command that mounts the given partition
     pub fn mount_cmd(&self, number: u32) -> Option<String>
     {
         if &self.format == "swap" {
@@ -164,12 +161,13 @@ impl Partition
         }
     }
 
-    /// Return the path to the partition file (e.g. `/dev/sda1`, if provided `0`)
+    /// Return the path to the partition file (e.g. `/dev/sda1`, if provided `0`, for 0th
+    /// partition)
     fn get_partition_file(&self, number: u32) -> String
     {
         let disk = self.disk.clone();
         let n = &(number + 1).to_string();
-        // NVME naming patterns are... abnormal.
+        // NVME naming patterns deviate from the usual
         let re = Regex::new(r"/dev/nvme\d+n\d+").unwrap();
         if re.is_match(&disk) {
             return disk + "p" + n;
@@ -177,7 +175,7 @@ impl Partition
         disk + n
     }
 
-    /// Return the fdisk partition type that should be used with a certain format
+    /// Return the `fdisk` partition type that should be used with the specified format
     fn fdisk_partition_type(&self) -> &str
     {
         match self.format.as_str() {
