@@ -132,6 +132,7 @@ impl Partition
             "ext3" => "mkfs.ext3",
             "ext4" => "mkfs.ext4",
             "fat32" => "mkfs.fat -F 32",
+            "swap" => "mkswap",
             _ => ""
         }.to_string();
         if cmd.is_empty() { // if true, then we didn't recognised the format
@@ -146,7 +147,12 @@ impl Partition
     /// point wasn't specified
     pub fn mount_cmd(&self, number: u32) -> Option<String>
     {
-        if self.mount.is_empty() {
+        if &self.format == "swap" {
+            Some(format!(
+                "swapon {}",
+                self.get_partition_file(number),
+            ))
+        } else if self.mount.is_empty() {
             None
         } else {
             Some(format!(
@@ -176,6 +182,7 @@ impl Partition
     {
         match self.format.as_str() {
             "fat32" => "b", // W95 FAT32
+            "swap" => "82", // Linux Swap
             _ => "83", // Linux
         }
     }
