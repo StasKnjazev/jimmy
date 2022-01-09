@@ -24,6 +24,7 @@ impl InstallOptions
               &self.chroot_script() + "EOF"),
             &("arch-chroot ".to_owned() + part2_file + "\n" +
               "rm -f " + part2_file),
+            "umount -R /mnt",
         ].iter().map(|s| s.to_string()).collect();
         lines.join("\n\n") + "\n"
     }
