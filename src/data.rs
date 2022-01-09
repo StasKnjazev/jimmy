@@ -7,6 +7,8 @@ pub struct ParsedInstallOptions
 {
     pub username: Option<String>,
     pub hostname: Option<String>,
+    pub region: Option<String>,
+    pub city: Option<String>,
     pub kernel: Option<String>,
     pub extra: Option<String>,
     pub bootloader: Option<String>,
@@ -37,6 +39,8 @@ pub struct InstallOptions
 {
     pub username: String,
     pub hostname: String,
+    pub region: String,
+    pub city: String,
     pub kernel: Kernel,
     pub extra: String,
     pub bootloader: String,
@@ -55,6 +59,8 @@ impl From<ParsedInstallOptions> for InstallOptions
         Self {
             username: raw.username.expect("error: username not specified"),
             hostname: raw.hostname.expect("error: hostname not specified"),
+            region: raw.region.expect("error: region not specified"),
+            city: raw.city.expect("error: city not specified"),
             kernel,
             extra: raw.extra.unwrap(),
             bootloader: raw.bootloader.expect("error: no bootloader specified"),
