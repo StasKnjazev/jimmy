@@ -20,8 +20,10 @@ impl InstallOptions
             // different script, put it in /mnt, run it with arch-chroot, and then delete it after
             // we're done.
             // Check `https://bbs.archlinux.org/viewtopic.php?id=204252`
-            &("cat <<EOF > ".to_owned() + part2_file + "\n" + &self.chroot_script() + "EOF"),
-            &("arch-chroot ".to_owned() + part2_file),
+            &("cat <<EOF > ".to_owned() + part2_file + "\n" +
+              &self.chroot_script() + "EOF"),
+            &("arch-chroot ".to_owned() + part2_file + "\n" +
+              "rm -f " + part2_file),
         ].iter().map(|s| s.to_string()).collect();
         lines.join("\n\n") + "\n"
     }
