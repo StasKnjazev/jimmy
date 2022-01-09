@@ -6,6 +6,11 @@ username: foo-person
 bootloader: grub
 extra: vim
 
+# Timezone info, as per /usr/share/zoneinfo/*Region*/*City*
+# For example purpoeses, use London, Europe
+region: Europe
+city: London
+
 # alternatively: `lts`
 kernel: latest
 
