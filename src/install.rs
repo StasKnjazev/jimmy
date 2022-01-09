@@ -17,6 +17,8 @@ impl InstallOptions
         code += "\n\n";
         code += "echo 'Y' | pacstrap /mnt ";
         code += &self.packages().join(" ");
+        code += "\n\n";
+        code += "genfstab -U /mnt >> /mnt/etc/fstab";
         code += "\n";
         code
     }
