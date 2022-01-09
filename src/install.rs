@@ -29,7 +29,7 @@ impl InstallOptions
         lines.join("\n\n") + "\n"
     }
 
-    /// Create the script that os ram frp, omsode the arch-chroot session
+    /// Create the script that is ran from inside the arch-chroot session to configure the system
     fn chroot_script(&self) -> String
     {
         let lines: Vec<String> = vec![
