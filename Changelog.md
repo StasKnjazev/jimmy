@@ -1,6 +1,16 @@
 # Changelog
 
-## 0.4.0 - 2021-01-08
+## 0.4.0 - 2021-01-09
+
+- add shell code (in the output) for:
+    - genfstab
+    - arch-chroot
+    - setting timezones
+- add properties `region` and `city` as mandatory in the input files & update
+tests
+- improve readability of some code
+
+## 0.3.5 - 2021-01-08
 
 - add shell code to update system time
 - add shell code to install specified packages
