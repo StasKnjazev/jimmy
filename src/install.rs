@@ -38,6 +38,7 @@ impl InstallOptions
                 self.city,
             ),
             &self.locales_cmd().join("\n"),
+            &format!("echo '{}' >/etc/hostname", &self.hostname),
             &InstallOptions::configure_networkmanager().join("\n"),
         ].iter().map(|s| s.to_string()).collect();
         lines.join("\n\n") + "\n"
