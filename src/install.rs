@@ -76,6 +76,7 @@ impl InstallOptions
             &self.extra,
             &self.bootloader,
             "efibootmgr",
+            "networkmanager",
         ]
     }
 
