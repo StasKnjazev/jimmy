@@ -5,6 +5,20 @@ An Arch installer with a funny name.
 Buuuut it's not interactive: it takes a YAML file as input, checks if it's
 valid, and generates a Shell script.
 
+What it can do:
+- partition disks (this includes creating the partitions, formatting, mounting
+them, and creating the fstab file)
+- install the packages you tell it to
+- set timezone and generate locales
+- set up NetworkManager
+- prompt you for a root password
+
+What it can't do:
+- configure bootloaders (*yet*)
+- create and configure users (yet)
+- set up graphical environments
+- set a default shell for a user
+
 ## Getting started
 
 ### Requirements
@@ -52,10 +66,10 @@ shell.
 - [x] configure the system
     - [x] generate an fstab file
     - [x] set timezone
-    - [ ] set locales
-    - [ ] configure network
-    - [ ] create initramfs
-    - [ ] ~~configure users + root~~
+    - [x] set locales
+    - [x] configure network
+    - [ ] ~~configure users~~
+    - [x] set root's password
     - [ ] configure bootloader
         - [ ] GRUB
         - [ ] efistub

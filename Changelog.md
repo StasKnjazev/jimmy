@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.6.0 - 2021-01-10
+
+- add code to set up networking by using NetworkManager
+- add code to prompt the user to set the root user's password
+- fix logical mistake where `locale-gen` wasn't being ran after setting up the locales
+
 ## 0.5.0 - 2021-01-10
 
 - add `locales` property as *optional*; if not specified, `en_US.UTF-8` is
