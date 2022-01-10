@@ -1,5 +1,12 @@
 # Changelog
 
+## 0.5.0 - 2021-01-10
+
+- add `locales` property as *optional*; if not specified, `en_US.UTF-8` is
+assumed to be the only locale
+- fix spacing error in arch-chroot command
+- make README more legible
+
 ## 0.4.0 - 2021-01-09
 
 - add shell code (in the output) for:
