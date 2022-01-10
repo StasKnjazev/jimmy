@@ -39,8 +39,19 @@ impl InstallOptions
                 self.city,
             ),
             &self.locales_cmd().join("\n"),
+            &InstallOptions::configure_networkmanager().join("\n"),
         ].iter().map(|s| s.to_string()).collect();
         lines.join("\n\n") + "\n"
+    }
+
+    /// Return a list of commands that get NetworkManager up and running. This assumes, of course,
+    /// that it's installed
+    fn configure_networkmanager() -> Vec<&'static str>
+    {
+        vec![
+            "systemctl enable --now systemd-resolved",
+            "systemctl enable NetworkManager.service",
+        ]
     }
 
     /// Return a vector containing the sed command that sets (uncomments) all specified locales in
