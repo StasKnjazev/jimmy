@@ -9,6 +9,7 @@ pub struct ParsedInstallOptions
     pub hostname: Option<String>,
     pub region: Option<String>,
     pub city: Option<String>,
+    pub locales: Option<Vec<String>>,
     pub kernel: Option<String>,
     pub extra: Option<String>,
     pub bootloader: Option<String>,
@@ -41,6 +42,7 @@ pub struct InstallOptions
     pub hostname: String,
     pub region: String,
     pub city: String,
+    pub locales: Vec<String>,
     pub kernel: Kernel,
     pub extra: String,
     pub bootloader: String,
@@ -56,11 +58,25 @@ impl From<ParsedInstallOptions> for InstallOptions
             "latest" => Kernel::Latest,
             _ => Kernel::Lts, // assume LTS kernel at all times
         };
+        let locales =
+            if let Some(l) = raw.locales {
+                match l[..] {
+                    [] => {
+                        eprintln!("warning: locales not specified; defaulting to 'en_US.UTF-8'");
+                        vec!["en_US.UTF-8".to_string()]
+                    }
+                    _ => l
+                }
+            } else {
+                eprintln!("warning: locales not specified; defaulting to 'en_US.UTF-8'");
+                vec!["en_US.UTF-8".to_string()]
+            };
         Self {
             username: raw.username.expect("error: username not specified"),
             hostname: raw.hostname.expect("error: hostname not specified"),
             region: raw.region.expect("error: region not specified"),
             city: raw.city.expect("error: city not specified"),
+            locales,
             kernel,
             extra: raw.extra.unwrap(),
             bootloader: raw.bootloader.expect("error: no bootloader specified"),

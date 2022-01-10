@@ -14,6 +14,11 @@ extra: vim
 region: Europe
 city: London
 
+# List of locales to use and generate. By default, when nothing is specified,
+# 'en_US.UTF-8' is assumed.
+locales:
+  - en_US.UTF-8
+
 # alternatively: `lts`
 kernel: latest
 
