@@ -41,6 +41,7 @@ impl InstallOptions
             &format!("echo '{}' >/etc/hostname", &self.hostname),
             &self.local_hostname_cmd(),
             &InstallOptions::configure_networkmanager().join("\n"),
+            &("echo 'Set root password:'\n".to_owned() + "passwd"),
             "exit",
         ].iter().map(|s| s.to_string()).collect();
         lines.join("\n\n") + "\n"
