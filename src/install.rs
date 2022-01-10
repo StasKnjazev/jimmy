@@ -39,9 +39,23 @@ impl InstallOptions
             ),
             &self.locales_cmd().join("\n"),
             &format!("echo '{}' >/etc/hostname", &self.hostname),
+            &self.local_hostname_cmd(),
             &InstallOptions::configure_networkmanager().join("\n"),
         ].iter().map(|s| s.to_string()).collect();
         lines.join("\n\n") + "\n"
+    }
+
+    /// Return a command that creates /etc/hosts and puts local hostname information into it
+    fn local_hostname_cmd(&self) -> String
+    {
+        format!(
+            "cat <<END_ETC_HOSTS >/etc/hosts\n{}\nEND_ETC_HOSTS",
+            vec![
+                "127.0.0.1\tlocalhost",
+                "::1\tlocalhost",
+                &format!("127.0.1.1\t{}", &self.hostname),
+            ].join("\n"),
+        )
     }
 
     /// Return a list of commands that get NetworkManager up and running. This assumes, of course,
