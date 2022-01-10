@@ -38,8 +38,29 @@ impl InstallOptions
                 self.region,
                 self.city,
             ),
+            &self.locales_cmd().join("\n"),
         ].iter().map(|s| s.to_string()).collect();
         lines.join("\n\n") + "\n"
+    }
+
+    /// Return a vector containing the sed command that sets (uncomments) all specified locales in
+    /// /etc/locale.gen, and the command that creates /etc/locale.conf and puts `LANG=${first of
+    /// the locales}` into it
+    fn locales_cmd(&self) -> Vec<String>
+    {
+        let mut fst = Vec::new();
+        fst.push("sed ".to_string());
+        for l in self.locales.clone() {
+            fst.push(format!("    --expression 's/^#{}$/{}/' ",
+                                l,
+                                l,
+                                ));
+        }
+        fst.push("    --in-place /etc/locale.gen".to_string());
+        vec![
+            fst.join("\\\n"),
+            format!("echo 'LANG={}' >/etc/locale.conf", self.locales.clone()[0]),
+        ]
     }
 
     /// Return a list of packages that need to be installed with `pacstrap` onto the new system
