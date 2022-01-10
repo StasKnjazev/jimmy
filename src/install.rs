@@ -21,7 +21,7 @@ impl InstallOptions
             // Check `https://bbs.archlinux.org/viewtopic.php?id=204252`
             &("cat <<EOF > ".to_owned() + "/mnt/jimmy_part2.sh\n" +
               &self.chroot_script() + "EOF"),
-            &("arch-chroot /mnt".to_owned() + "./jimmy_part2.sh\n" +
+            &("arch-chroot /mnt ./jimmy_part2.sh\n".to_owned() +
               "rm -f /mnt/jimmy_part2.sh"),
             "umount -R /mnt",
         ].iter().map(|s| s.to_string()).collect();
@@ -36,7 +36,7 @@ impl InstallOptions
             &format!(
                 "ln -sf /usr/share/zoneinfo/{}/{} /etc/localtime\nhwclock --systohc",
                 self.region,
-                self.city
+                self.city,
             ),
         ].iter().map(|s| s.to_string()).collect();
         lines.join("\n\n") + "\n"
