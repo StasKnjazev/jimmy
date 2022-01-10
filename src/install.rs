@@ -37,7 +37,7 @@ impl InstallOptions
                 self.region,
                 self.city,
             ),
-            &self.locales_cmd().join("\n"),
+            &(self.locales_cmd().join("\n") + "\n" + "locale-gen"),
             &format!("echo '{}' >/etc/hostname", &self.hostname),
             &self.local_hostname_cmd(),
             &InstallOptions::configure_networkmanager().join("\n"),
