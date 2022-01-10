@@ -12,8 +12,7 @@ impl InstallOptions
             &self.fdisk_cmds().join("\n"),
             &self.map_partitions(Partition::mkfs_cmd).join("\n"),
             &self.map_partitions(Partition::mount_cmd).join("\n"),
-            "echo 'Y' | pacstrap /mnt ",
-            &self.packages().join(" "),
+            &("echo 'Y' | pacstrap /mnt ".to_owned() + &self.packages().join(" ")),
             "genfstab -U /mnt >> /mnt/etc/fstab",
             // The system configuration part is a bit complicated, since we first need to create a
             // different script, put it in /mnt, run it with arch-chroot, and then delete it after
