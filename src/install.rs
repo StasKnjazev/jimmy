@@ -18,8 +18,8 @@ impl InstallOptions
             // different script, put it in /mnt, run it with arch-chroot, and then delete it after
             // we're done.
             // Check `https://bbs.archlinux.org/viewtopic.php?id=204252`
-            &("cat <<EOF > ".to_owned() + "/mnt/jimmy_part2.sh\n" +
-              &self.chroot_script() + "EOF"),
+            &("cat <<END_OF_SECOND_SCRIPT > ".to_owned() + "/mnt/jimmy_part2.sh\n" +
+              &self.chroot_script() + "END_OF_SECOND_SCRIPT"),
             &("arch-chroot /mnt ./jimmy_part2.sh\n".to_owned() +
               "rm -f /mnt/jimmy_part2.sh"),
             "umount -R /mnt",
@@ -41,6 +41,7 @@ impl InstallOptions
             &format!("echo '{}' >/etc/hostname", &self.hostname),
             &self.local_hostname_cmd(),
             &InstallOptions::configure_networkmanager().join("\n"),
+            "exit",
         ].iter().map(|s| s.to_string()).collect();
         lines.join("\n\n") + "\n"
     }
