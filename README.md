@@ -2,8 +2,8 @@
 
 An Arch installer with a funny name.
 
-It's not interactive. It takes a YAML file as input, checks if it's valid,
-generates a Shell script based on it.
+Buuuut it's not interactive: it takes a YAML file as input, checks if it's
+valid, and generates a Shell script.
 
 ## Getting started
 
@@ -31,10 +31,10 @@ Synopsis:
 jimmy <FILE>
 ```
 
-`jimmy` will then proceed to generate a shell script based on the input file,
-warn you of missing/important properties, and error if there some vital ones
-(such as `hostname`) aren't specified. It is up to you to redirect the output to
-a file and execute it with a shell.
+`jimmy` will then proceed to generate output a shell script, warning you of
+missing properties, and error if some vital ones (such as `hostname`) aren't
+specified. It's up to you to redirect the output to a file and execute it with a
+shell.
 
 ## Roadmap
 
@@ -49,9 +49,9 @@ a file and execute it with a shell.
         - [x] format
         - [x] mount filesystems
     - [x] install *all* specified packages
-- [ ] configure the system
-    - [ ] generate an fstab file
-    - [ ] set timezone
+- [x] configure the system
+    - [x] generate an fstab file
+    - [x] set timezone
     - [ ] set locales
     - [ ] configure network
     - [ ] create initramfs
