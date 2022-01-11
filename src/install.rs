@@ -42,9 +42,24 @@ impl InstallOptions
             &self.local_hostname_cmd(),
             &InstallOptions::configure_networkmanager().join("\n"),
             &("echo 'Set root password:'\n".to_owned() + "passwd"),
+            &self.install_bootloader().join("\n"),
             "exit",
         ].iter().map(|s| s.to_string()).collect();
         lines.join("\n\n") + "\n"
+    }
+
+    /// Return a list of commands that get the specified bootloader up and running, or panic if the
+    /// bootloader isn't valid
+    fn install_bootloader(&self) -> Vec<String>
+    {
+        match self.bootloader.as_str() {
+            "grub" =>
+                vec![
+                    "grub-install --target=x86_64-efi --bootloader-id=GRUB --recheck",
+                    "grub-mkconfig -o /boot/grub/grub.cfg",
+                ].into_iter().map(|s| s.to_string()).collect(),
+            _ => panic!("invalid bootloader"),
+        }
     }
 
     /// Return a command that creates /etc/hosts and puts local hostname information into it
