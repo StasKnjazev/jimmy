@@ -68,6 +68,38 @@ impl InstallOptions
                     "grub-install --target=x86_64-efi --bootloader-id=GRUB --recheck",
                     "grub-mkconfig -o /boot/grub/grub.cfg",
                 ].into_iter().map(|s| s.to_string()).collect(),
+            "efistub" => {
+                let lts = match &self.kernel {
+                    Kernel::Lts => "-lts",
+                    _ => "",
+                };
+                let partitions_and_disks = self.map_partitions(Partition::get_partition_file);
+                let boot_partition = partitions_and_disks.iter()
+                    .find(|(p, _)| match p.mount.as_str() {
+                        "/boot" | "/efi" => true,
+                        _ => false,
+                    })
+                    .expect("using efistub, but no boot partition was detected");
+                let part_re = Regex::new(r"\d+$").unwrap();
+                let root_partition = partitions_and_disks.iter()
+                    .find(|(p, _)| p.mount.as_str() == "/")
+                    .expect("using efistub, but no root partition was detected");
+
+                vec![
+                    format!(
+                        "efibootmgr --disk {} --part {} --create --label \"Arch Linux{}\" --loader /vmlinuz-linux{} --unicode='root={} rw initrd=\\initramfs-linux{}.img' --verbose",
+                        boot_partition.0.disk,
+                        part_re.find(&boot_partition.1.clone().unwrap()).map(|s| s.as_str()).unwrap_or(""),
+                        match lts { // if using LTS kernel, then put label "Arch Linux LTS"
+                            "-lts" => " LTS",
+                            _ => ""
+                        },
+                        lts, // if using LTS kernel, use /vmlinuz-linux-lts
+                        root_partition.1.clone().unwrap(), // find root partition
+                        lts, // if using LTS kernel, use \initramfs-linux-lts.img
+                    )
+                ]
+                },
             _ => panic!("invalid bootloader"),
         }
     }
@@ -233,7 +265,7 @@ impl Partition
         if cmd.is_empty() { // if true, then we didn't recognise the format
             None
         } else {
-            Some(cmd + " " + &self.get_partition_file(number))
+            Some(cmd + " " + &self.get_partition_file(number).unwrap())
         }
     }
 
@@ -243,7 +275,7 @@ impl Partition
         if &self.format == "swap" {
             Some(format!(
                 "swapon {}",
-                self.get_partition_file(number),
+                self.get_partition_file(number).unwrap(),
             ))
         } else if self.mount.is_empty() {
             None
@@ -251,7 +283,7 @@ impl Partition
             Some(format!(
                 "mkdir -p /mnt{} && mount {} {}",
                 self.mount,
-                self.get_partition_file(number),
+                self.get_partition_file(number).unwrap(),
                 self.mount,
             ))
         }
@@ -259,16 +291,17 @@ impl Partition
 
     /// Return the path to the partition file (e.g. `/dev/sda1`, if provided `0`, for 0th
     /// partition)
-    fn get_partition_file(&self, number: u32) -> String
+    fn get_partition_file(&self, number: u32) -> Option<String>
     {
         let disk = self.disk.clone();
         let n = &(number + 1).to_string();
         // NVME naming patterns deviate from the usual
         let re = Regex::new(r"/dev/nvme\d+n\d+").unwrap();
-        if re.is_match(&disk) {
-            return disk + "p" + n;
-        }
-        disk + n
+        Some(if re.is_match(&disk) {
+            disk + "p" + n
+        } else {
+            disk + n
+        })
     }
 
     /// Return the `fdisk` partition type that should be used with the specified format
