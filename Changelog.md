@@ -1,5 +1,12 @@
 # Changelog
 
+## 0.7.0 - 2021-01-16
+
+- fix: put shebang at the start of the script so it runs
+- add code for configuring GRUB
+- add example with EFISTUB as bootloader
+- add code for configuring EFISTUB
+
 ## 0.6.0 - 2021-01-10
 
 - add code to set up networking by using NetworkManager

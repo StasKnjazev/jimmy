@@ -12,9 +12,9 @@ them, and creating the fstab file)
 - set timezone and generate locales
 - set up NetworkManager
 - prompt you for a root password
+- install and configure GRUB *or* EFISTUB
 
 What it can't do:
-- configure bootloaders (*yet*)
 - create and configure users (yet)
 - set up graphical environments
 - set a default shell for a user
@@ -70,9 +70,9 @@ shell.
     - [x] configure network
     - [ ] ~~configure users~~
     - [x] set root's password
-    - [ ] configure bootloader
-        - [ ] GRUB
-        - [ ] efistub
+    - [x] configure bootloader
+        - [x] GRUB
+        - [x] efistub
 
 ## Contributing
 
