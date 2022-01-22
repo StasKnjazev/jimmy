@@ -75,10 +75,7 @@ impl InstallOptions
                 };
                 let partitions_and_disks = self.map_partitions(Partition::get_partition_file);
                 let boot_partition = partitions_and_disks.iter()
-                    .find(|(p, _)| match p.mount.as_str() {
-                        "/boot" | "/efi" => true,
-                        _ => false,
-                    })
+                    .find(|(p, _)| matches!(p.mount.as_str(), "/boot" | "/efi"))
                     .expect("using efistub, but no boot partition was detected");
                 let part_re = Regex::new(r"\d+$").unwrap();
                 let root_partition = partitions_and_disks.iter()
@@ -132,8 +129,7 @@ impl InstallOptions
     /// the locales}` into it
     fn locales_cmd(&self) -> Vec<String>
     {
-        let mut fst = Vec::new();
-        fst.push("sed ".to_string());
+        let mut fst = vec!["sed ".to_string()];
         for l in self.locales.clone() {
             fst.push(format!("    --expression 's/^#{}$/{}/' ",
                                 l,
@@ -177,7 +173,7 @@ impl InstallOptions
             partitions
                 .enumerate()
                 .map(|(idx, partition)| {
-                    (partition.clone(), apply(partition, idx as u32))
+                    (partition, apply(partition, idx as u32))
                 })
                 .collect::<Vec<(&Partition, Option<String>)>>()
         })
