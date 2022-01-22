@@ -49,6 +49,20 @@ pub struct InstallOptions
     pub partitions: Vec<Partition>,
 }
 
+/// If the combination of region and timezone is valid, return true
+fn is_valid_zoneinfo(region: Option<String>, city: Option<String>) -> bool
+{
+    crate::is_file(&format!(
+        "/usr/share/zoneinfo/{}{}",
+        region.unwrap_or_default(),
+        if let Some(city) = city {
+            format!("/{}", city)
+        } else {
+            "".to_string()
+        }
+    ))
+}
+
 impl From<ParsedInstallOptions> for InstallOptions
 {
     /// Create a new instance of `InstallOptions` from an instance of `ParsedInstallOptions`
@@ -71,11 +85,16 @@ impl From<ParsedInstallOptions> for InstallOptions
                 eprintln!("warning: locales not specified; defaulting to 'en_US.UTF-8'");
                 vec!["en_US.UTF-8".to_string()]
             };
+
+        if !is_valid_zoneinfo(raw.region.clone(), raw.city.clone()) {
+            panic!("invalid zoneinfo (region: '{:?}', city: '{:?}'", raw.region, raw.city);
+        }
+
         Self {
             username: raw.username.expect("error: username not specified"),
             hostname: raw.hostname.expect("error: hostname not specified"),
-            region: raw.region.expect("error: region not specified"),
-            city: raw.city.expect("error: city not specified"),
+            region: raw.region.unwrap_or_default(),
+            city: raw.city.unwrap_or_default(),
             locales,
             kernel,
             extra: raw.extra.unwrap(),
