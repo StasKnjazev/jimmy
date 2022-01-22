@@ -56,6 +56,7 @@ shell.
 - [x] parse YAML file (with `serde`)
 - [x] check if the input file is valid
     - [x] error if e.g. `username` isn't specified
+    - [x] panic if zoneinfo isn't valid
 - [x] prepare installation
     - [x] update system clock
     - [x] partitions

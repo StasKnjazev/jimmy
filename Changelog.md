@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.7.1 - 2021-01-22
+
+- panic if zoneinfo isn't valid
+- add example files related to zoneinfo
+- refactor: rename files in `examples/` directory
+
 ## 0.7.0 - 2021-01-16
 
 - fix: put shebang at the start of the script so it runs
