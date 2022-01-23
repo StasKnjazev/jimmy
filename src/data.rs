@@ -139,3 +139,42 @@ impl From<ParsedPartition> for Partition
         }
     }
 }
+
+#[allow(dead_code)]
+pub fn sample_input_file() -> &'static str
+{
+r"# Basic arch installation; latest kernel with a single root partition, booted
+# with GRUB
+# It uses /dev/sda for its partition
+
+username: arch-user-btw
+hostname: archlinux
+
+# user preferences
+bootloader: grub
+extra: vim
+
+# Timezone info, as per /usr/share/zoneinfo/*Region*/*City*
+# For example purpoeses, use London, Europe
+region: Europe
+city: London
+
+# List of locales to use and generate. By default, when nothing is specified,
+# 'en_US.UTF-8' is assumed.
+locales:
+  - en_US.UTF-8
+
+# alternatively: `lts`
+kernel: latest
+
+# you have to configure partitions manually
+partitions:
+  # the name of the array serves no purpose other than readability
+  - root:
+    format: ext4
+    mount: /
+    disk: /dev/sda
+    # when there's no `size` property, it's assumed you want the remaining space
+    # on the disk
+"
+}
