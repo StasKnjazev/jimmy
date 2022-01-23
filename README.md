@@ -15,6 +15,8 @@ them, and creating the fstab file)
 - install and configure GRUB *or* EFISTUB
 
 What it can't do:
+- connect to the internet (you must do that youself)
+- set up mirrors and gpg keys (you must also do that)
 - create and configure users (yet)
 - set up graphical environments
 - set a default shell for a user
