@@ -6,6 +6,7 @@ Buuuut it's not interactive: it takes a YAML file as input, checks if it's
 valid, and generates a Shell script.
 
 What it can do:
+- print a template YAML file that you can then edit and feed it
 - partition disks (this includes creating the partitions, formatting, mounting
 them, and creating the fstab file)
 - install the packages you tell it to
@@ -44,7 +45,7 @@ cargo build
 Synopsis:
 
 ```
-jimmy <FILE>
+jimmy [-f | --file | -s | --sample] [<ARGS>]
 ```
 
 `jimmy` will then proceed to generate output a shell script, warning you of
@@ -76,6 +77,7 @@ shell.
     - [x] configure bootloader
         - [x] GRUB
         - [x] efistub
+- [x] generate template YAML file on the spot
 
 ## Contributing
 

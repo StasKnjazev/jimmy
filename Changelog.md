@@ -1,5 +1,10 @@
 # Changelog
 
+## 0.8.0 - 2022-01-23
+
+- change: use `-f`, `--file` option instead of passing filename directly
+- add: `-s`, `--sample` option to print a simple file it accepts as input
+
 ## 0.7.2 - 2022-01-23
 
 - fix: make second script executable before running arch-chroot
