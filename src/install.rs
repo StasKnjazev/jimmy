@@ -192,7 +192,7 @@ impl InstallOptions
         for disk in disks {
             let partitions = self.partitions_on_disk(&disk);
 
-            let mut cmd = String::from("echo \"g\\n");
+            let mut cmd = String::from("echo -e \"g\\n");
             let mut i = 1;
             while i <= partitions.len() as u32 {
                 cmd += partitions[i as usize - 1].fdisk_script_string(i).as_str();

@@ -1,9 +1,13 @@
 # Changelog
 
+## 0.8.1 - 2021-01-21
+
+- fix: expand newline sequences in 'echo' call
+
 ## 0.8.0 - 2022-01-23
 
 - change: use `-f`, `--file` option instead of passing filename directly
-- add: `-s`, `--sample` option to print a simple file it accepts as input
+- add: `-s`, `--sample` option to print a template file
 
 ## 0.7.2 - 2022-01-23
 
