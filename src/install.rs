@@ -192,13 +192,13 @@ impl InstallOptions
         for disk in disks {
             let partitions = self.partitions_on_disk(&disk);
 
-            let mut cmd = String::from("echo -n \"g\\n");
+            let mut cmd = String::from("echo \"g\\n");
             let mut i = 1;
             while i <= partitions.len() as u32 {
                 cmd += partitions[i as usize - 1].fdisk_script_string(i).as_str();
                 i += 1;
             }
-            cmd += &format!("\\nw\\n\" | fdisk {} &>/dev/null", disk);
+            cmd += &format!("\\nw\" | fdisk {} &>/dev/null", disk);
             cmds.push(cmd);
         }
         cmds
@@ -239,15 +239,20 @@ impl Partition
             // then: change the type of the partition
             // use the partition number specified
             // change it to the type needed for the format
-            r"n\np\n{}\n\n{}\nt\n{}\n{}\n",
+            r"n\np\n{}\n\n{}\nt{}\n{}\n",
             number,
             if self.size.is_empty() {
                 "".to_string()
             } else {
                 format!("+{}", &self.size)
             },
-            number,
-            &self.fdisk_partition_type(),
+            // The first partition is going to be selected by default
+            if number == 0 {
+                format!("\n{}", number)
+            } else {
+                "".to_string()
+            },
+            self.fdisk_partition_type()
         )
     }
 
