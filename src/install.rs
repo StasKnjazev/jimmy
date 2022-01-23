@@ -30,7 +30,7 @@ impl InstallOptions
             // Check `https://bbs.archlinux.org/viewtopic.php?id=204252`
             &("cat <<END_OF_SECOND_SCRIPT > ".to_owned() + "/mnt/jimmy_part2.sh\n" +
               &self.chroot_script() + "END_OF_SECOND_SCRIPT"),
-            "chmod +x /mnt/jimmy_part2",
+            "chmod +x /mnt/jimmy_part2.sh",
             &("arch-chroot /mnt ./jimmy_part2.sh\n".to_owned() +
               "rm -f /mnt/jimmy_part2.sh"),
             "umount -R /mnt",
