@@ -1,5 +1,12 @@
 # Changelog
 
+## 0.7.2 - 2021-01-23
+
+- fix: make second script executable before running arch-chroot
+- fix: if partition size is not specified, don't put a plus sign
+- fix: add `/mnt` before mount point
+- fix: fdisk selecting wrong disk type
+
 ## 0.7.1 - 2021-01-22
 
 - panic if zoneinfo isn't valid
