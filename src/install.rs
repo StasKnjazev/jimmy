@@ -239,9 +239,13 @@ impl Partition
             // then: change the type of the partition
             // use the partition number specified
             // change it to the type needed for the format
-            r"n\np\n{}\n\n+{}\nt\n{}\n{}\n",
+            r"n\np\n{}\n\n{}\nt\n{}\n{}\n",
             number,
-            &self.size,
+            if self.size.is_empty() {
+                "".to_string()
+            } else {
+                format!("+{}", &self.size)
+            },
             number,
             &self.fdisk_partition_type(),
         )
