@@ -1,6 +1,6 @@
 [package]
 name = "jimmy"
-version = "0.7.1"
+version = "0.7.2"
 edition = "2021"
 authors = [ "xylous <xylous.e@gmail.com>" ]
 description = "Arch Linux installer... with YAML files"
