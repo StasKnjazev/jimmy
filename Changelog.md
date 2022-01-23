@@ -6,6 +6,7 @@
 - fix: if partition size is not specified, don't put a plus sign
 - fix: add `/mnt` before mount point
 - fix: fdisk selecting wrong disk type
+- fix: don't unwrap `extra` every time
 
 ## 0.7.1 - 2022-01-22
 

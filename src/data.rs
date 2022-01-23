@@ -97,7 +97,7 @@ impl From<ParsedInstallOptions> for InstallOptions
             city: raw.city.unwrap_or_default(),
             locales,
             kernel,
-            extra: raw.extra.unwrap(),
+            extra: raw.extra.unwrap_or_default(),
             bootloader: raw.bootloader.expect("error: no bootloader specified"),
             // turn every `ParsedPartition` into a proper `Partition`
             partitions: raw.partitions.expect("error: no partitions specified")
