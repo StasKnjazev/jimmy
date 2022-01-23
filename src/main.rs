@@ -24,19 +24,30 @@ fn main() -> Result<(), std::io::Error>
         .author("xylous <xylous.e@gmail.com>")
         .about("Arch installer using YAML files")
         .arg(Arg::new("FILE")
-            .required(true))
+            .short('f')
+            .long("--file")
+            .takes_value(true)
+            .help("sets the input file"))
+        .arg(Arg::new("flag_sample_file")
+            .short('s')
+            .long("--sample")
+            .help("prints a sample file to stdout"))
         .get_matches();
 
-    let path = cli_args.value_of("FILE").unwrap();
-    if !is_file(path) {
-        eprintln!("error: provided path is not a file");
-        exit(1);
-    }
+    if cli_args.is_present("FILE") {
+        let path = cli_args.value_of("FILE").unwrap();
+        if !is_file(path) {
+            eprintln!("error: provided path is not a file");
+            exit(1);
+        }
 
-    let contents = read_file(path)?;
-    let parsed: ParsedInstallOptions = serde_yaml::from_str(&contents).unwrap();
-    let proper = InstallOptions::from(parsed);
-    print!("{}", proper.generate_shellscript());
+        let contents = read_file(path)?;
+        let parsed: ParsedInstallOptions = serde_yaml::from_str(&contents).unwrap();
+        let proper = InstallOptions::from(parsed);
+        print!("{}", proper.generate_shellscript());
+    } else if cli_args.is_present("flag_sample_file") {
+        print!("{}", sample_input_file());
+    }
 
     Ok(())
 }

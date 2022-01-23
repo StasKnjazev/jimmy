@@ -140,7 +140,6 @@ impl From<ParsedPartition> for Partition
     }
 }
 
-#[allow(dead_code)]
 pub fn sample_input_file() -> &'static str
 {
 r"# Basic arch installation; latest kernel with a single root partition, booted
