@@ -85,7 +85,7 @@ impl InstallOptions
 
                 vec![
                     format!(
-                        "efibootmgr --disk {} --part {} --create --label \"Arch Linux{}\" --loader /vmlinuz-linux{} --unicode='root={} rw initrd=\\initramfs-linux{}.img' --verbose",
+                        "efibootmgr --disk {} --part {} --create --label \"Arch Linux{}\" --loader /vmlinuz-linux{} --unicode 'root={} rw initrd=\\initramfs-linux{}.img' --verbose",
                         boot_partition.0.disk,
                         part_re.find(&boot_partition.1.clone().unwrap()).map(|s| s.as_str()).unwrap_or(""),
                         match lts { // if using LTS kernel, then put label "Arch Linux LTS"
