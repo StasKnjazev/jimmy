@@ -314,9 +314,9 @@ impl Partition
     fn fdisk_partition_type(&self) -> &str
     {
         match self.format.as_str() {
-            "fat32" => "b", // W95 FAT32
-            "swap" => "82", // Linux Swap
-            _ => "83", // Linux
+            "fat32" => "uefi", // EFI System
+            "swap" => "swap", // Linux swap
+            _ => "linux", // Linux filesystem
         }
     }
 }
