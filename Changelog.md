@@ -1,8 +1,12 @@
 # Changelog
 
-## 0.8.1 - 2021-01-21
+## 0.8.1 - 2021-01-24
 
 - fix: expand newline sequences in 'echo' call
+- fix: pass options to efistub properly
+- fix: don't add efistub to the list of packages to be installed on the target
+system
+- fix: fdisk selecting the wrong partition type due to wrong codes
 
 ## 0.8.0 - 2022-01-23
 
