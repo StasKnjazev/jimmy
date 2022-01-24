@@ -130,6 +130,8 @@ impl From<ParsedPartition> for Partition
         }
         if raw.mount.is_none() || raw.mount.as_ref().unwrap() == "" {
             eprintln!("warning: partition mount not specified; it's not going to be mounted");
+        } else if !raw.mount.as_ref().unwrap().starts_with("/") {
+            panic!("mount point is a relative path: \"{}\"", raw.mount.unwrap())
         }
         Self {
             format,
