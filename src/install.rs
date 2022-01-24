@@ -232,14 +232,13 @@ impl Partition
     {
         format!(
             // n: create new partition
-            // p: primary partition
             // use partition number specified
             // next line: default first sector
             // use partition size specified in instance
             // then: change the type of the partition
             // use the partition number specified
             // change it to the type needed for the format
-            r"n\np\n{}\n\n{}\nt{}\n{}\n",
+            r"n\n{}\n\n{}\nt{}\n{}\n",
             number,
             if self.size.is_empty() {
                 "".to_string()
@@ -247,10 +246,10 @@ impl Partition
                 format!("+{}", &self.size)
             },
             // The first partition is going to be selected by default
-            if number == 0 {
-                format!("\n{}", number)
-            } else {
+            if number == 1 {
                 "".to_string()
+            } else {
+                format!("\\n{}", number)
             },
             self.fdisk_partition_type()
         )
