@@ -155,7 +155,11 @@ impl InstallOptions
             },
             "linux-firmware",
             &self.extra,
-            &self.bootloader,
+            if &self.bootloader != "efistub" {
+                &self.bootloader
+            } else {
+                ""
+            },
             "efibootmgr",
             "networkmanager",
         ]
