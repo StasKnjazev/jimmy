@@ -21,7 +21,13 @@ impl InstallOptions
             "timedatectl set-ntp true",
             &self.fdisk_cmds().join("\n"),
             &map_snd(self.map_partitions(Partition::mkfs_cmd)).join("\n"),
-            &map_snd(self.map_partitions(Partition::mount_cmd)).join("\n"),
+            {
+                let mut ps = self.map_partitions(Partition::mount_cmd);
+                let root_part_ind = ps.iter().position(|(p,_)| p.mount == "/").unwrap_or(0);
+                ps.swap(0, root_part_ind);
+
+                &map_snd(ps).join("\n")
+            },
             &("echo 'Y' | pacstrap /mnt ".to_owned() + &self.packages().join(" ")),
             "genfstab -U /mnt >> /mnt/etc/fstab",
             // The system configuration part is a bit complicated, since we first need to create a
