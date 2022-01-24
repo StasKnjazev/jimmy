@@ -1,6 +1,12 @@
 # Changelog
 
-## 0.8.1 - 2021-01-24
+## 0.8.2 - 2022-01-24
+
+- fix: always mount root partition before other partitions
+- fix: panic if a partition's mount point is relative
+- add example where relative paths are used, and the result should be a panic
+
+## 0.8.1 - 2022-01-24
 
 - fix: expand newline sequences in 'echo' call
 - fix: pass options to efistub properly
