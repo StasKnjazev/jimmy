@@ -76,7 +76,7 @@ impl InstallOptions
                 "<-> cleanup: unmounting all filesystems on /mnt...",
                 "umount -R /mnt",
             ),
-            "echo -e '\n<-> done; you may reboot now".to_string(),
+            "echo -e '\\n<-> done; you may reboot now".to_string(),
         ].join("\n\n") + "\n"
     }
 
