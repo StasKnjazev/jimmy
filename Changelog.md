@@ -1,5 +1,10 @@
 # Changelog
 
+## 0.9.0 - 2022-01-30
+
+- add: print status messages before most commands
+- fix: remove the `echo` pipe into `pacstrap`
+
 ## 0.8.2 - 2022-01-24
 
 - fix: always mount root partition before other partitions

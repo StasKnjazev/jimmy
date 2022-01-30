@@ -78,6 +78,7 @@ shell.
         - [x] GRUB
         - [x] efistub
 - [x] generate template YAML file on the spot
+- [x] print status messages while installing
 
 ## Contributing
 
