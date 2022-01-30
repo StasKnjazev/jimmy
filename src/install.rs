@@ -34,18 +34,24 @@ impl InstallOptions
                 "timedatectl set-ntp true"
             ),
             echo_status(
-                "<-> creating filesystems using fdisk...",
+                "<-> creating partitions using fdisk...",
                 &self.fdisk_cmds().join("\n"),
             ),
-            map_snd(self.map_partitions(Partition::mkfs_cmd)).join("\n"),
-            // Always mount root partition first
-            {
-                let mut ps = self.map_partitions(Partition::mount_cmd);
-                let root_part_ind = ps.iter().position(|(p,_)| p.mount == "/").unwrap_or(0);
-                ps.swap(0, root_part_ind);
+            echo_status(
+                "<-> formatting partitions...",
+                &map_snd(self.map_partitions(Partition::mkfs_cmd)).join("\n"),
+            ),
+            echo_status(
+                "<-> mounting partitions...",
+                // Always mount root partition first
+                {
+                    let mut ps = self.map_partitions(Partition::mount_cmd);
+                    let root_part_ind = ps.iter().position(|(p,_)| p.mount == "/").unwrap_or(0);
+                    ps.swap(0, root_part_ind);
 
-                map_snd(ps).join("\n")
-            },
+                    &map_snd(ps).join("\n")
+                },
+            ),
             format!("pacstrap /mnt {}", &self.packages().join(" ")),
             echo_status(
                 "<-> generating the filesystem table...",
