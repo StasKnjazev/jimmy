@@ -11,6 +11,14 @@ fn map_snd<A, B>(tuples: Vec<(A, Option<B>)>) -> Vec<B>
         .collect()
 }
 
+/// Given a string and a list of commands, prepend an echo command printing the message to the list
+/// of commands
+#[allow(dead_code)]
+fn echo_status(msg: &str, cmds: &str) -> String
+{
+    format!("echo '{}'\n{}", msg, cmds)
+}
+
 impl InstallOptions
 {
     /// Create the script that applies the settings and installs the system
