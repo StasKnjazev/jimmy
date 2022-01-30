@@ -28,7 +28,7 @@ impl InstallOptions
 
                 &map_snd(ps).join("\n")
             },
-            &("echo 'Y' | pacstrap /mnt ".to_owned() + &self.packages().join(" ")),
+            &("pacstrap /mnt ".to_owned() + &self.packages().join(" ")),
             "genfstab -U /mnt >> /mnt/etc/fstab",
             // The system configuration part is a bit complicated, since we first need to create a
             // different script, put it in /mnt, run it with arch-chroot, and then delete it after
