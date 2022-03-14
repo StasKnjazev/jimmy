@@ -30,14 +30,10 @@ What it can't do:
 
 ### Installation
 
-#### Manual
-
-Clone this repository and build, e.g.:
+Install from crates.io directly:
 
 ```
-git clone https://github.com/xylous/jimmy jimmy
-cd jimmy
-cargo build
+cargo install jimmy
 ```
 
 ### Usage
@@ -48,10 +44,21 @@ Synopsis:
 jimmy [-f | --file | -s | --sample] [<ARGS>]
 ```
 
-`jimmy` will then proceed to generate output a shell script, warning you of
-missing properties, and error if some vital ones (such as `hostname`) aren't
-specified. It's up to you to redirect the output to a file and execute it with a
-shell.
+`jimmy` will then proceed to generate a shell script and print it to `stdout`,
+warning you of missing properties, and error if some vital ones (such as
+`hostname`) aren't specified. It's up to you to redirect the output to a file
+and execute it with a shell.
+
+Here's an example using concrete commands:
+
+```
+jimmy --sample >input.yaml
+vim input.yaml
+jimmy --file input.yaml >script.sh
+chmod +x script.sh
+```
+
+WARNING: Do NOT run it, except in an Arch live system! You *can* lose data!
 
 ## Roadmap
 
