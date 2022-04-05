@@ -14,13 +14,14 @@ them, and creating the fstab file)
 - set up NetworkManager
 - prompt you for a root password
 - install and configure GRUB *or* EFISTUB
+- create users (usernames, groups, etc.). Note that the `wheel` group is always
+    capable of using sudo.
+- set a default shell for a user
 
 What it can't do:
 - connect to the internet (you must do that youself)
 - set up mirrors and gpg keys (you must also do that)
-- create and configure users (yet)
 - set up graphical environments
-- set a default shell for a user
 
 ## Getting started
 

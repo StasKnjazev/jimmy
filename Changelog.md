@@ -1,5 +1,12 @@
 # Changelog
 
+## 0.10.0 - 2022-04-05
+
+- fix: keep asking for root password if it fails
+- add: creating users (names, groups)
+- add: specifying shells for users
+- add: example file with users
+
 ## 0.9.0 - 2022-01-30
 
 - add: print status messages before most commands
