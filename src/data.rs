@@ -177,8 +177,13 @@ r"# Basic arch installation; latest kernel with a single root partition, booted
 # with GRUB
 # It uses /dev/sda for its partition
 
-username: arch-user-btw
 hostname: archlinux
+
+# Users are optional. Remember: root is always a default user.
+users:
+  - main:
+    name: archie
+    groups: [ wheel ]
 
 # user preferences
 bootloader: grub
