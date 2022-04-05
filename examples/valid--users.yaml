@@ -10,10 +10,12 @@ users:
     groups: [ wheel ]
   - second:
     name: eihcra
+    # note: FULL PATH
+    shell: /bin/zsh
 
 # user preferences
 bootloader: grub
-extra: vim
+extra: vim zsh
 
 # Timezone info, as per /usr/share/zoneinfo/*Region*/*City*
 # For example purpoeses, use London, Europe

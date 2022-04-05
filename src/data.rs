@@ -34,6 +34,7 @@ pub struct ParsedUser
 {
     pub name: Option<String>,
     pub groups: Option<Vec<String>>,
+    pub shell: Option<String>,
 }
 
 /// Only the Latest or the LTS kernel can be installed
@@ -158,6 +159,7 @@ pub struct User
 {
     pub name: String,
     pub groups: Vec<String>,
+    pub shell: String,
 }
 
 impl From<ParsedUser> for User
@@ -167,6 +169,7 @@ impl From<ParsedUser> for User
         Self {
             name: raw.name.expect("No username specified"),
             groups: raw.groups.unwrap_or_default(),
+            shell: raw.shell.unwrap_or_default(),
         }
     }
 }
@@ -184,6 +187,9 @@ users:
   - main:
     name: archie
     groups: [ wheel ]
+    # note: use full paths
+    # note: jimmy doesn't check if the shell is valid
+    shell: /bin/bash
 
 # user preferences
 bootloader: grub

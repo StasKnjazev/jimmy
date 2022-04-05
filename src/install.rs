@@ -418,10 +418,15 @@ impl User
     {
         vec![
             format!(
-                "useradd -m {}{}",
+                "useradd -m {}{}{}",
                 &self.name,
                 if ! &self.groups.is_empty() {
                     format!(" -G {}", &self.groups.join(","))
+                } else {
+                    "".to_string()
+                },
+                if ! &self.shell.is_empty() {
+                    format!(" -s {}", &self.shell)
                 } else {
                     "".to_string()
                 },
