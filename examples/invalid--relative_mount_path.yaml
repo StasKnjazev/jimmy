@@ -1,7 +1,6 @@
 # jimmy panics on this example, complaining that the provided path for the
 # `boot` partition is relative
 
-username: foo-person
 hostname: archlinux
 
 # user preferences

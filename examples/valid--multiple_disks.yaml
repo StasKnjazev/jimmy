@@ -1,6 +1,5 @@
 # Uses three partitions on two different disks
 
-username: baz-person
 hostname: archlinux
 
 # user preferences

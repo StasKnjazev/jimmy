@@ -1,6 +1,5 @@
 # Use two partitions (a boot partition and a root partition) on /dev/sda
 
-username: bar-person
 hostname: archlinux
 
 # user preferences

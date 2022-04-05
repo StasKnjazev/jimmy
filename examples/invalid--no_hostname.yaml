@@ -1,7 +1,5 @@
 # Invalid example; `hostname` is missing, and it should error
 
-username: foo-person
-
 # user preferences
 bootloader: grub
 extra: vim

@@ -1,6 +1,5 @@
 # Use two partitions (a swap partition and root partition) on /dev/sda
 
-username: foo-bar-lad
 hostname: archlinux
 
 # user preferences

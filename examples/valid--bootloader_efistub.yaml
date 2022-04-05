@@ -1,6 +1,5 @@
 # Uses three partitions on two different disks, + efistub for booting
 
-username: baz-person
 hostname: archlinux
 
 # user preferences

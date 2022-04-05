@@ -1,6 +1,5 @@
 # The timezone is deliberately wrong; jimmy should panic when fed this file
 
-username: foo-person
 hostname: archlinux
 
 # user preferences

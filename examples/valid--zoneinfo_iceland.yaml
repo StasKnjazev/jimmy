@@ -1,7 +1,6 @@
 # Even if 'city' isn't specified, the timezone is still valid, because Iceland
 # is listed as a region with no cities
 
-username: foo-person
 hostname: archlinux
 
 # user preferences

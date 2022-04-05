@@ -2,7 +2,6 @@
 # with GRUB
 # It uses /dev/sda for its partition
 
-username: foo-person
 hostname: archlinux
 
 # user preferences

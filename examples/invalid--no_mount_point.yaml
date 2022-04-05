@@ -1,7 +1,6 @@
 # The root partition doesn't have a mountpoint specified; jimmy should throw a
 # warning for that
 
-username: foo-person
 hostname: archlinux
 
 # user preferences
