@@ -125,6 +125,10 @@ impl InstallOptions
                 "while true; do if passwd; then break; fi; done",
             ),
             echo_status(
+                "<chroot> making the wheel group capable of using sudo...",
+                "echo 'wheel ALL=(ALL) ALL' | EDITOR='tee -a' visudo",
+            ),
+            echo_status(
                 "<chroot> Configuring users, if any...",
                 &self.users.clone().into_iter()
                     .map(|u| u.to_commands().join("\n"))
