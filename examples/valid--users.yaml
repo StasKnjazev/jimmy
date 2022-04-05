@@ -7,8 +7,9 @@ hostname: archlinux
 users:
   - first:
     name: archie
-    groups: wheel
-    sudoer: true
+    groups: [ wheel ]
+  - second:
+    name: eihcra
 
 # user preferences
 bootloader: grub
