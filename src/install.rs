@@ -403,16 +403,19 @@ impl Partition
 impl User
 {
     #[allow(dead_code)]
-    fn to_command(&self) -> String
+    fn to_commands(&self) -> Vec<String>
     {
-        format!(
-            "useradd -m {}{}",
-            &self.name,
-            if ! &self.groups.is_empty() {
-                format!(" -G {}", &self.groups.join(","))
-            } else {
-                "".to_string()
-            },
-        )
+        vec![
+            format!(
+                "useradd -m {}{}",
+                &self.name,
+                if ! &self.groups.is_empty() {
+                    format!(" -G {}", &self.groups.join(","))
+                } else {
+                    "".to_string()
+                },
+            ),
+            format!("while true; do if passwd {}; then break; fi; done", &self.name),
+        ]
     }
 }
