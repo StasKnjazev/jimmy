@@ -1,4 +1,4 @@
-use crate::data::{InstallOptions, Partition, Kernel};
+use crate::data::{InstallOptions, Partition, User, Kernel};
 use regex::Regex;
 
 /// Take the second element of each of the tuples in the input only if they're Some()
@@ -397,5 +397,22 @@ impl Partition
             "swap" => "swap", // Linux swap
             _ => "linux", // Linux filesystem
         }
+    }
+}
+
+impl User
+{
+    #[allow(dead_code)]
+    fn to_command(&self) -> String
+    {
+        format!(
+            "useradd -m {}{}",
+            &self.name,
+            if ! &self.groups.is_empty() {
+                format!(" -G {}", &self.groups.join(","))
+            } else {
+                "".to_string()
+            },
+        )
     }
 }
