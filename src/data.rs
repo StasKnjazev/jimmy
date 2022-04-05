@@ -33,8 +33,7 @@ pub struct ParsedPartition
 pub struct ParsedUser
 {
     pub name: Option<String>,
-    pub groups: Option<String>,
-    pub sudoer: Option<bool>,
+    pub groups: Option<Vec<String>>,
 }
 
 /// Only the Latest or the LTS kernel can be installed
@@ -158,8 +157,7 @@ impl From<ParsedPartition> for Partition
 pub struct User
 {
     pub name: String,
-    pub groups: String,
-    pub sudoer: bool,
+    pub groups: Vec<String>,
 }
 
 impl From<ParsedUser> for User
@@ -169,7 +167,6 @@ impl From<ParsedUser> for User
         Self {
             name: raw.name.expect("No username specified"),
             groups: raw.groups.unwrap_or_default(),
-            sudoer: raw.sudoer.unwrap_or(false),
         }
     }
 }
