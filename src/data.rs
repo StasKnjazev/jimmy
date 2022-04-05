@@ -5,7 +5,6 @@ use serde::Deserialize;
 #[derive(Deserialize, Debug)]
 pub struct ParsedInstallOptions
 {
-    pub username: Option<String>,
     pub hostname: Option<String>,
     pub region: Option<String>,
     pub city: Option<String>,
@@ -14,6 +13,7 @@ pub struct ParsedInstallOptions
     pub extra: Option<String>,
     pub bootloader: Option<String>,
     pub partitions: Option<Vec<ParsedPartition>>,
+    pub users: Option<Vec<ParsedUser>>,
 }
 
 /// *Potentially* valid partition options. Everything is wrapped in `Option<T>` because serde would
@@ -27,6 +27,16 @@ pub struct ParsedPartition
     pub mount: Option<String>,
 }
 
+/// *Potentially* valid user. Everything is wrapped in `Option<T>` because serde would error if the
+/// property isn't found.
+#[derive(Deserialize, Debug, Clone)]
+pub struct ParsedUser
+{
+    pub name: Option<String>,
+    pub groups: Option<String>,
+    pub sudoer: Option<bool>,
+}
+
 /// Only the Latest or the LTS kernel can be installed
 #[derive(Debug)]
 pub enum Kernel {
@@ -38,7 +48,6 @@ pub enum Kernel {
 #[derive(Debug)]
 pub struct InstallOptions
 {
-    pub username: String,
     pub hostname: String,
     pub region: String,
     pub city: String,
@@ -47,6 +56,7 @@ pub struct InstallOptions
     pub extra: String,
     pub bootloader: String,
     pub partitions: Vec<Partition>,
+    pub users: Vec<User>,
 }
 
 /// If the combination of region and timezone is valid, return true
@@ -91,7 +101,6 @@ impl From<ParsedInstallOptions> for InstallOptions
         }
 
         Self {
-            username: raw.username.expect("error: username not specified"),
             hostname: raw.hostname.expect("error: hostname not specified"),
             region: raw.region.unwrap_or_default(),
             city: raw.city.unwrap_or_default(),
@@ -102,6 +111,8 @@ impl From<ParsedInstallOptions> for InstallOptions
             // turn every `ParsedPartition` into a proper `Partition`
             partitions: raw.partitions.expect("error: no partitions specified")
                             .into_iter().map(|p| p.into()).collect(),
+            // turn every `ParsedUser` into a proper `User`
+            users: raw.users.unwrap_or_default().into_iter().map(|u| u.into()).collect(),
         }
     }
 }
@@ -138,6 +149,27 @@ impl From<ParsedPartition> for Partition
             disk: raw.disk.expect("error: partition disk not specified"),
             size: raw.size.unwrap_or_else(|| "".to_string()),
             mount: raw.mount.unwrap_or_else(|| "".to_string()),
+        }
+    }
+}
+
+/// Struct that contains the minimum needed to create an user
+#[derive(Debug)]
+pub struct User
+{
+    pub name: String,
+    pub groups: String,
+    pub sudoer: bool,
+}
+
+impl From<ParsedUser> for User
+{
+    fn from(raw: ParsedUser) -> Self
+    {
+        Self {
+            name: raw.name.expect("No username specified"),
+            groups: raw.groups.unwrap_or_default(),
+            sudoer: raw.sudoer.unwrap_or(false),
         }
     }
 }
