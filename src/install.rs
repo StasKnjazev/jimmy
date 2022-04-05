@@ -125,6 +125,13 @@ impl InstallOptions
                 "while true; do if passwd; then break; fi; done",
             ),
             echo_status(
+                "<chroot> Configuring users, if any...",
+                &self.users.clone().into_iter()
+                    .map(|u| u.to_commands().join("\n"))
+                    .collect::<Vec<String>>()
+                    .join("\n\n"),
+            ),
+            echo_status(
                 "<chroot> setting up bootloader...",
                 &self.install_bootloader().join("\n"),
             ),

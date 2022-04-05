@@ -153,7 +153,7 @@ impl From<ParsedPartition> for Partition
 }
 
 /// Struct that contains the minimum needed to create an user
-#[derive(Debug)]
+#[derive(Debug, Clone)]
 pub struct User
 {
     pub name: String,
