@@ -121,8 +121,8 @@ impl InstallOptions
                 &InstallOptions::configure_networkmanager().join("\n"),
             ),
             echo_status(
-                "<chroot> set root password:",
-                "passwd",
+                "<chroot> set password for root user (repeats until success):",
+                "while true; do if passwd; then break; fi; done",
             ),
             echo_status(
                 "<chroot> setting up bootloader...",
