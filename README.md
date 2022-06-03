@@ -1,9 +1,23 @@
 # jimmy
 
-An Arch installer with a funny name.
+Have you ever considered just how boring entering your options manually into an
+interactive installer is? And what if you forget something? What if you change
+your mind about a single, perhaps small, thing? You're most likely going to have
+to start from scratch again.
 
-Buuuut it's not interactive: it takes a YAML file as input, checks if it's
-valid, and generates a Shell script.
+The alternative is to write your own shell script, which is often long and
+confusing. Plus, if you aren't really tidy, you're going to have a hard time
+changing things.
+
+Enter: `jimmy`, an Arch installer unlike any other. The idea is simple: store
+all preferences/settings in a YAML file and generate a shell script from it.
+Both problems are solved: your configuration is now *very* concise. If you want
+to change something, simply edit the file and re-run jimmy.
+
+There's one clear drawback: that it's not as customisable as writing your own
+shell script. Sure, it might seem limiting. But 1) it can generate shell script
+for most things you'd need in a minimal Arch installation and 2) if you want
+customisation, you can edit the output shell script anyways
 
 What it can do:
 - print a template YAML file that you can then edit and feed it
@@ -80,7 +94,7 @@ WARNING: Do NOT run it, except in an Arch live system! You *can* lose data!
     - [x] set timezone
     - [x] set locales
     - [x] configure network
-    - [ ] ~~configure users~~
+    - [x] configure users
     - [x] set root's password
     - [x] configure bootloader
         - [x] GRUB
